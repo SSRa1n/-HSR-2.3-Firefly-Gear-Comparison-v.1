@@ -8,16 +8,19 @@ break_in_enhanced = 2 #Total weakness break in enhanced skill
 actions_in_enhanced = 4 #Actions in enhanced skill
 
 enemies_level = 95 #Enemy's level
-enemies = 1
-enemies_res = 0
-enemies_broken = True
+enemies = 1 #Number of enemies
+enemies_res = 0 #Enemy Fire RES, just keep it at 0
 
-ruanmei_eidolon_cap = 1
-firefly_eidolon_cap = 2
-whereabouts_superimpose_cap = 1
+ruanmei_eidolon_cap = 1 #Highest Ruan Mei's eidolon in the calculation
+firefly_eidolon_cap = 2 #Highest Firefly's eidolon in the calculation
+whereabouts_superimpose_cap = 0 #Highest Signature LC's superimpose level in the calculation
+## If you're not planning to pull for signature LC, put it at 0 ##
+## The Code will use S5 Fall of an Aeon instead ##
 
-htb_break_effect = 200.0
+htb_break_effect = 200.0 #Harmony Trailblazer's break effect
+## Ruan Mei not included ##
 
+## non-signature LC stat ##
 lc_atk_base = 529.2
 lc_be = 0.0
 lc_atk_bonus = 0.64
@@ -36,6 +39,12 @@ buff_atk_flat = 0.0
 buff_atk_bonus = 0.0
 buff_be_bonus = 0.0
 buff_vulnerability = 0.0
+
+########################################################################################
+########################################################################################
+############        DON'T TOUCH IF YOU HAVE NO IDEA WHAT'S GOING ON        #############
+########################################################################################
+########################################################################################
 
 results = []
 
@@ -140,44 +149,17 @@ class Whereabouts():
 
 for i in range(0, ruanmei_eidolon_cap + 2):
   ruanmei = RuanMei()
-  if enemies_broken:
-    ruanmei.enemies_broken()
   ruanmei.eidolon = i
   if ruanmei.eidolon == ruanmei_eidolon_cap + 1:
     ruanmei = RuanMei(404, 0.0, 0.0, 0, 0, 0.0, False)
-  #### Ruan Mei Test ####
-  # print(ruanmei.eidolon)
-  # print(ruanmei.res_pen())
-  # print(ruanmei.def_ignore())
-  # print(ruanmei.break_efficiency())
-  # print(ruanmei.break_effect())
-  # print(ruanmei.atk())
-  # print('--------------------')
-  #### Ruan Mei Test ####
   for j in range(0, firefly_eidolon_cap + 1):
     firefly = Firefly()
     firefly.eidolon = j
-    #### Firefly Test ####
-    # print(firefly.eidolon)
-    # print(firefly.res_pen())
-    # print(firefly.def_ignore())
-    # print(firefly.break_efficiency())
-    # print(firefly.vulnerability())
-    # print('--------------------')
-    #### Firefly Test ####
     for k in range(1, whereabouts_superimpose_cap + 2):
       whereabouts = Whereabouts()
       whereabouts.superimpose = k
       if whereabouts.superimpose == whereabouts_superimpose_cap + 1:
         whereabouts = Whereabouts(0, lc_atk_base, lc_be, lc_atk_bonus, lc_vulnerability)
-      #### Whereabouts Test ####
-      # print(whereabouts.superimpose)
-      # print(whereabouts.atk_base())
-      # print(whereabouts.break_effect())
-      # print(whereabouts.atk_bonus())
-      # print(whereabouts.vulnerability())
-      # print('--------------------')
-      #### Whereabouts Test ####
       total_atk = (firefly.atk_base() + whereabouts.atk_base()) * (1 + (relic_atk_bonus + whereabouts.atk_bonus() + buff_atk_bonus)) + relic_atk_flat + buff_atk_flat
       
       atk_be_conversion = 0.0
@@ -218,5 +200,3 @@ for l in sorted_results:
   whereabouts_superimpose = 'S5 AeonFall' if l[2] == 0 else 'S' + str(l[2]) + ' Whereabouts'
   superbreak_dmg = str(l[3]) + ' DMG'
   print(f'{firefly_eidolon} | {ruanmei_eidolon} | {whereabouts_superimpose} | {superbreak_dmg}')
-# for l in sorted_results:
-#   print('E' + str(l[0]) + ' Firefly' + ' | E' + str(l[1]) + ' Ruan Mei' + ' | S' + str(l[2]) + ' Whereabouts' + ' | ' + str(l[3]) + ' DMG')
