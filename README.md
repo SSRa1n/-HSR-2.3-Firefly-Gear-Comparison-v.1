@@ -1,5 +1,5 @@
 The customizable value are on the very top of the code with a note explaining what it does, you can mess with the code if you wanna try out something
-Just copy the code and paste it on repl.it or visual studio, customize the variable and run it
+Just copy the code and paste it on replit.com or visual studio, customize the variable and run it
 
 Complete Firefly guide
 https://www.reddit.com/r/FireflyMains/comments/1cxg3k5/build_team_building_kit_questions_faq_megathread/
